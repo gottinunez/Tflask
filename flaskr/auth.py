@@ -14,13 +14,31 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        verificarpassword = request.form['verificarpassword']
+        #email = request.form["email"]
         db = get_db()
         error = None
 
         if not username:
             error = 'Username is required.'
+
+        elif "@" in username:
+            error = "el usuario no puede tener arroba"
+
         elif not password:
             error = 'Password is required.'
+        
+        #elif not email:
+        #    error = "email incorrecto"
+
+        #elif "@" not in email:
+        #    error = "el email debe tener arroba"
+
+        elif not password:
+            error = "la contraseña es incorrecta"
+
+        elif verificarpassword != password:
+            error = "la contraseña no es la misma"
 
         if error is None:
             try:
